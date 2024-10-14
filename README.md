@@ -1,14 +1,14 @@
-﻿# ASYNC_DAG_TASK
-Descripción del Programa
+# Descripción del Programa
+
 Este programa está diseñado para ejecutar tareas asíncronas con diferentes niveles de prioridad. Utiliza una cola de prioridad (heap) para gestionar las tareas según su profundidad, y cada tarea puede desencadenar otras tareas adicionales.
 
-Componentes del Programa
-Clase Actividad
+## Componentes del Programa
+
+### Clase `Actividad`
+
 Representa una actividad que contiene una tarea y su prioridad. Se utiliza para organizar las tareas en la cola de prioridades.
 
-python
-
-Copy
+```python
 class Actividad:
     """
     Representa una actividad con una prioridad y una tarea a ejecutar.
@@ -33,12 +33,13 @@ class Actividad:
         :return: True si la prioridad es mayor, False en caso contrario.
         """
         return self.prioridad > other.prioridad  # Invertimos el orden para que la mayor profundidad tenga más prioridad
-Clase Tarea
+```
+
+### Clase `Tarea`
+
 Define una tarea con un nombre, una acción a ejecutar y una lista de tareas que pueden ser activadas cuando se completa la tarea principal.
 
-python
-
-Copy
+```python
 class Tarea:
     """
     Representa una tarea que ejecutará una acción y puede gatillar otras tareas.
@@ -72,35 +73,4 @@ class Tarea:
             nueva_actividad = Actividad(profundidad + 1, tarea, resultado)
             heapq.heappush(cola, nueva_actividad)
         return resultado
-Función main()
-Configura y gestiona la ejecución de las tareas, procesando cada actividad de la cola según su prioridad.
-
-python
-
-Copy
-async def main():
-    """
-    Función principal para ejecutar las tareas.
-    """
-    # Definir las tareas y la cola de actividades
-    tarea_principal = Tarea("Tarea Principal", accion_principal)
-    cola = [Actividad(0, tarea_principal, None)]
-    while cola:
-        actividad_actual = heapq.heappop(cola)
-        await actividad_actual.tarea.ejecutar(actividad_actual.objeto, actividad_actual.prioridad, cola)
-Función accion_principal()
-Es una acción de ejemplo que se ejecutará como parte de las tareas definidas.
-
-python
-
-Copy
-async def accion_principal(objeto: Any) -> Any:
-    """
-    Acción principal a ejecutar.
-
-    :param objeto: Objeto relacionado con la acción.
-    :return: Resultado de la acción.
-    """
-    # Implementar la acción principal aquí
-    pass
-¡Espero que esto te ayude a entender y documentar mejor tu programa!
+```
